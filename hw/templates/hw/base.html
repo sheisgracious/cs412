@@ -1,0 +1,24 @@
+<!-- hw/templates/hw/base.html -->
+
+{% load static %}
+<html>
+  <head>
+    <title>Hello World</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}" />
+  </head>
+  <body>
+    <nav>
+      <li>
+        <a href="{% url 'home_page' %}">Home</a>
+      </li>
+      <li><a href="{% url 'about_page' %}">About</a></li>
+    </nav>
+    <!-- put page specific content here -->
+    {% block content %} 
+    
+    {% endblock content %}
+    <footer>
+      The current time is {{ time }}. Here is a random letter: {{ letter1 }}
+    </footer>
+  </body>
+</html>

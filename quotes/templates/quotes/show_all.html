@@ -1,0 +1,17 @@
+<!-- quotes/templates/show_all.html-->
+{% extends "quotes/base.html" %} {% block content %}
+<h2>Show All</h2>
+
+<ul>
+  {% for item in quotes %}
+  <li>{{ item }}</li>
+  {% endfor %}
+</ul>
+
+{% for item2 in images %}
+<img
+  src="{{ item2 }}"
+  alt="Nelson Mandela photo"
+  style="max-width: 500px; height: auto"
+/>
+{% endfor %} {% endblock content %}

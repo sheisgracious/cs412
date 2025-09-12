@@ -1,0 +1,27 @@
+<!-- quotes/templates/base.html -->
+
+{% load static %}
+<html>
+  <head>
+    <title>Quotes</title>
+    <link rel="stylesheet" href="{% static 'quotes.css' %}" />
+  </head>
+  <header>
+    <h1>Nelson Mandela Quote of the Day</h1>
+  </header>
+  <body>
+    <nav>
+      <li>
+        <a href="{% url 'quote_page' %}">Quote of the Day</a>
+      </li>
+      <li><a href="{% url 'show_all' %}">Show All</a></li>
+      <li><a href="{% url 'about' %}">About</a></li>
+    </nav>
+    <!-- put page specific content here -->
+    {% block content %} {% endblock content %}
+    <footer>
+      <p>Created by Gracious Ogyiri Asare for CS412. </p>
+      <p>Generated at: {{ time }}</p>
+    </footer>
+  </body>
+</html>
