@@ -1,0 +1,42 @@
+<!-- templates/restaurants/order.html-->
+{% extends "restaurant/base.html" %} {% block content %}
+  <h1>Place Your Order</h1>
+  <form action="{% url 'submit_order' %}" method="post">
+    {% csrf_token %} 
+
+    <h2>Select an item:</h2>
+    <div class="items">
+    <input type="checkbox" name="item1" value="Red Velvet Cake $3" /> 
+      Red Velvet Cake <p class="price">$3</p>
+
+      <input type="checkbox" name="item2" value="Chocolate Covered Strawberries $3.50" /> 
+      Chocolate Covered Strawberries <p class="price">$3.50</p>
+
+      <input type="checkbox" name="item3" value="Lemon Cheesecake $1.50" />
+      Lemon Cheesecake <p class="price">$1.50</p>
+
+      <input type="checkbox" name="item4" value="Pineapple Upside Down Cupcake $0.50" />
+      Pineapple Upside Down Cupcake  <p class="price">$1.50</p>
+
+    <h2>Today's Special:</h2>
+    <input type="checkbox" name="item5" value='{{ special }} $2.00'/>
+      {{ special }}
+
+      <h2>Special Instructions:</h2>
+      <p>Please share any special instructions below.</p>
+      <textarea name="special_instructions" rows="3" cols="60"></textarea>
+
+    <h2>Customer Information</h2>
+    <div class="contact">
+    Name
+    <input name="name" requred /> 
+    Phone Number
+    <input name="number" required />
+    Email
+    <input name="email" required />
+    </div>
+    <input type="submit" />
+  </form>
+</div>
+
+{% endblock content %}

@@ -1,0 +1,15 @@
+<!-- templates/restaurants/main.html-->
+{% extends "restaurant/base.html" %} {% load static %} 
+{% block content %}
+<div>
+  <title>Bonjour! Welcome!</title>
+  <img
+    src="{% static 'boulangerie.png' %}"
+    alt="Image of entrance to restaurant called Boulangerie"
+  />
+  <p
+    >Welcome to <strong>La Boulangerie</strong>, the world's best stop for
+    bakery and pastry!</p
+  >
+</div>
+{% endblock content %}

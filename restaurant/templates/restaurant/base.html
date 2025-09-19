@@ -1,0 +1,23 @@
+<!-- restaurant/templates/restaurant/base.html-->
+
+{% load static %}
+<html>
+  <head>
+    <title>La Boulangerie</title>
+    <link rel="stylesheet" href="{% static 'restaurant.css' %}" />
+  </head>
+  <body>
+    <header><h1>La Boulangerie</h1></header>
+    <nav>
+      <li>
+        <a href="{% url 'main' %}">Home</a>
+      </li>
+      <li><a href="{% url 'order' %}">Order</a></li>
+    </nav>
+    {% block content %} {% endblock content %}
+  </body>
+  <footer>
+    <p>Created by Gracious Ogyiri Asare for CS 412. </p>
+    <p>Generated at: {{ time }}</p>
+  </footer>
+</html>
