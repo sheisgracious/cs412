@@ -1,0 +1,114 @@
+/* General styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #fafafa;
+}
+
+/* Navigation */
+.navbar {
+    background-color: white;
+    border-bottom: 1px solid #dbdbdb;
+    padding: 10px 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+/* Container */
+.container {
+    max-width: 935px;
+    margin: 80px auto 0;
+    padding: 0 20px;
+}
+
+/* Post styles */
+.post {
+    background-color: white;
+    border: 1px solid #dbdbdb;
+    border-radius: 3px;
+    margin-bottom: 60px;
+}
+
+.post-header {
+    padding: 16px;
+    display: flex;
+    align-items: center;
+}
+
+.post-header img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.post-image img {
+    width: 100%;
+    height: auto;
+}
+
+.post-content {
+    padding: 16px;
+}
+
+/* Form styles */
+.form-container {
+    max-width: 350px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: white;
+    border: 1px solid #dbdbdb;
+    border-radius: 3px;
+}
+
+.form-field {
+    margin-bottom: 15px;
+}
+
+.form-field input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #dbdbdb;
+    border-radius: 3px;
+}
+
+.btn {
+    background-color: #0095f6;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #0081d6;
+}
+
+/* Profile styles */
+.profile-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 44px;
+}
+
+.profile-pic {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin-right: 100px;
+}
+
+/* Error messages */
+.error-message {
+    color: #ed4956;
+    margin: 10px 0;
+}
+
+/* Success messages */
+.success-message {
+    color: #2ecc71;
+    margin: 10px 0;
+}
