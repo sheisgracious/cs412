@@ -11,7 +11,7 @@
     <h3>@{{ profile.username }}</h3>
     <a href="{% url 'show_profile' profile.pk %}">
       <img
-        src="{{ profile.profile_picture_url }}"
+        src="{{ profile.profile_image_url }}"
         alt="{{ profile.username }}'s profile picture."
         width="200"
         height="200"
