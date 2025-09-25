@@ -7,19 +7,19 @@
   </head>
   <body>
     <h1>Mini Insta</h1>
-    <nav>
-        <ul>
-            <li>
-            <a href="{% url 'show_all_profiles' %}">Show All Profiles</a>
-            </li>
-            <li>
-            {% comment %} <a href="{% url 'blog:show_all' %}">Blog</a> {% endcomment %}
-            </li>
-        </ul>
-    </nav>
+    {% comment %} <nav>
+      <ul>
+        <li>
+          <a href="{% url 'show_all_profiles' %}">Show All Profiles</a>
+        </li>
+      </ul>
+    </nav> {% endcomment %}
     {% block content %} {% endblock content %}
     <footer>
-    <p>Created by Gracious Ogyiri Asare for CS412. </p>
-  </footer>
+      <p>
+        <a href="{% url 'show_all_profiles' %}">Show all profiles</a>
+      </p>
+      <p>Created by Gracious Ogyiri Asare for CS412. </p>
+    </footer>
   </body>
 </html>

@@ -1,10 +1,17 @@
 from django.shortcuts import render
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 from .models import Profile
 
 # Create your views here.
 class ProfileListView(ListView):
+    '''Display all profiles.'''
     model = Profile
     template_name = 'mini_insta/show_all_profiles.html'
     context_object_name = 'profiles' 
-    ordering = ['-join_date']  # Order by join date descending
+    ordering = ['-join_date']  
+
+class ProfileDetailView(DetailView):
+    '''Display single profile.'''
+    model = Profile
+    template_name = 'mini_insta/show_profile.html'
+    context_object_name = 'profile'  
