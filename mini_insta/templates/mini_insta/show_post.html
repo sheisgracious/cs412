@@ -1,0 +1,19 @@
+<!-- mini_insta/show_post.html-->
+{% extends "mini_insta/base.html" %} {% block content %}
+<div class="post-detail">
+    <h2>{{ post.profile.display_name }} </h2>
+    <h3>{{ post.profile.username }} </3>
+    {% for photo in post.get_all_photos %}
+    {% if photo.image_url %}
+      <img src="{{ photo.image_url }}" alt="Post Image" width="600" height="300" />
+    {% else %}
+      <p>No image available</p>
+    {% endif %}
+   {% endfor %}
+  <p class="caption">{{ post.caption }}</p>
+  <p class="date">Posted on {{ post.timestamp }}</p>
+
+</div>
+{% endblock content %}
+
+

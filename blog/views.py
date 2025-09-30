@@ -1,6 +1,8 @@
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, CreateView
 from .models import Article
+from .forms import CreateArticleForm, CreateCommentForm
+from django.urls import reverse
 import random
 
 # Create your views here.
@@ -28,3 +30,52 @@ class RandomArticleView(DetailView):
         all_articles = Article.objects.all()
         article = random.choice(all_articles)
         return article
+    
+class CreateArticleView(CreateView):
+    '''Create a new article.
+    1. Display a HTML form to the user (GET)
+    2. Process the form submission and store the new Article object (POST)
+    '''
+    form_class = CreateArticleForm
+    template_name = 'blog/create_article_form.html'
+
+class CreateCommentView(CreateView):
+    '''Create a new comment for an article.
+    '''
+    form_class = CreateCommentForm
+    template_name = 'blog/create_comment_form.html'
+
+    def get_success_url(self):
+        '''provide a URL to redirect to after the form is successfully processed.'''
+        pk = self.kwargs['pk']  
+        # call reverse to get the URL for the article detail view
+        return reverse('article', kwargs={'pk': pk})
+    
+    def get_context_data(self):
+        '''return the dictionay of context variables for rendering the template.'''
+        # call the superclass method 
+        context = super().get_context_data()
+
+        # find/add the article to the context
+        pk = self.kwargs['pk']
+        article = Article.objects.get(pk=pk)
+
+        # add the article to the context
+        context['article'] = article
+        return context
+
+
+    def form_valid(self, form):
+        '''handles the form submission and saves the new comment to the database.'''
+
+        print(form.cleaned_data) #debug
+        pk = self.kwargs['pk']  
+
+        # retrieve the article object using the pk
+        article = Article.objects.get(pk=pk)
+
+        # attach this article to the comment
+        form.instance.article = article  
+
+        # delegate the work to the superclass
+        return super().form_valid(form)

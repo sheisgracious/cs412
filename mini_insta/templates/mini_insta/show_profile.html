@@ -1,3 +1,5 @@
+<!-- mini_insta/show_profile.html-->
+
 {% extends "mini_insta/base.html" %} {% block content %}
 
 <div class="user-profile">
@@ -11,6 +13,32 @@
     <h2>{{ profile.display_name }}</h2>
     <p class="bio">{{ profile.bio_text }}</p>
     <p class="date">Joined {{ profile.join_date }}</p>
+  </div>
+</div>
+
+<!--Displaying Posts-->
+<div>
+  <h2>Posts</h2>
+  <div class="posts">
+    {% for post in profile.get_all_posts %}
+    <div class="post-item">
+      {% if post.get_all_photos %}
+      
+      <a href="{% url 'show_post' post.pk %}">
+        <img
+          src="{{ post.get_all_photos.first.image_url }}"
+          alt="Post photo"
+          style="max-width: 300px"
+      /></a>
+      
+
+      {% else %}
+      <p>No image uploaded</p>
+      {% endif %}
+      <a href="{% url 'show_post' post.pk %}"><h4>Caption- {{ post.caption }}</h4></a>
+    </div>
+    <hr />
+    {% endfor %}
   </div>
 </div>
 
