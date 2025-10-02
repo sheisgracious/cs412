@@ -109,9 +109,3 @@ footer {
   padding: 10px 20px;
 }
 
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  margin: 0 auto;
-}
