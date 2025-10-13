@@ -1,0 +1,31 @@
+<!--mini_insta/update_post_form.html-->
+<!-- Gracious Ogyiri Asare - gpoa@bu.edu -->
+
+{% extends "mini_insta/base.html" %} {% block content %}
+<h1>Update Post</h1>
+
+<div class="post-item">
+  {% if post.get_all_photos %}
+    <img
+      src="{{ post.get_all_photos.first.get_image_url }}"
+      alt="Post photo"
+      style="max-width: 300px"
+    />
+  {% else %}
+    <p>No image uploaded</p>
+  {% endif %}
+</div>
+
+<form method="post">
+  {% csrf_token %}
+  <table>
+    {{ form.as_table }}
+  </table>
+
+  <input type="submit" value="Update Post" />
+  <a href="{% url 'show_post' post.pk %}">
+    <button type="button">Cancel</button>
+  </a>
+</form>
+
+{% endblock content %}

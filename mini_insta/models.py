@@ -1,6 +1,9 @@
 # mini_insta/models.py
+# Gracious Ogyiri Asare- gpoa@bu.edu
+
 # define data models for the mini_insta app
 from django.db import models
+from django.urls import reverse
 
 # Create your models here.
 class Profile(models.Model):
@@ -20,6 +23,10 @@ class Profile(models.Model):
         '''Return a QuerySet of posts made by this profile.'''
         posts = Post.objects.filter(profile=self).order_by('-timestamp')
         return posts
+    def get_absolute_url(self):
+        '''return url to access the profile'''
+        return reverse('show_profile', kwargs={'pk': self.pk})
+
      
 class Post(models.Model):
     '''Model representing a post.'''
@@ -38,14 +45,31 @@ class Post(models.Model):
         photos = Photo.objects.filter(post=self)
         return photos
     
+    def get_absolute_url(self):
+        '''return the url to access this post.'''
+        return reverse('show_post', kwargs={'pk': self.pk})
+    
 class Photo(models.Model):
     '''Model representing a photo in a post.'''
 
     # define data fields of the Photo model
     post = models.ForeignKey(Post, on_delete=models.CASCADE) #foreign key to Post model
     image_url = models.URLField(blank=True)
+    image_file = models.ImageField(blank=True)
     timestamp = models.DateTimeField(auto_now=True) #set the published date automatically  
     
     def __str__(self):
         '''String for representing the Model object.'''
-        return f'Photo uploaded with {self.post} at {self.image_url} posted {self.timestamp}'
+        image_url = self.get_image_url()
+        if image_url:
+            return f'Photo uploaded with {self.post} at {image_url} posted at {self.timestamp}'
+        else:
+            return f'Photo uploaded with {self.post} posted {self.timestamp}'
+    
+    def get_image_url(self):
+        '''Return the URL to image'''
+        if self.image_url:
+            return self.image_url
+        elif self.image_file:
+            return self.image_file.url
+        return None

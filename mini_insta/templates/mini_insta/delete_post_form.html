@@ -1,0 +1,31 @@
+<!--mini_insta/delete_post_form.html-->
+<!-- Gracious Ogyiri Asare - gpoa@bu.edu -->
+
+{% extends "mini_insta/base.html" %} {% block content %}
+<h3>Are you sure you want to delete this post?</h3>
+
+<div>
+  {% if post.get_all_photos %}
+    <img
+      src="{{ post.get_all_photos.first.get_image_url }}"
+      alt="Post photo"
+      style="max-width: 300px"
+    />
+  {% else %}
+    <p>No image</p>
+  {% endif %}
+  
+  <h4>Caption: {{ post.caption }}</h4>
+  <p>Posted on {{ post.timestamp }}</p>
+</div>
+
+<form method="post">
+  {% csrf_token %}
+  <input type="submit" value="Delete" />
+</form>
+
+<a href="{% url 'show_profile' profile.pk %}">
+  <button type="button">Cancel</button>
+</a>
+
+{% endblock content %}

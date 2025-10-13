@@ -1,0 +1,19 @@
+<!--mini_insta/update_profile_form.html-->
+<!-- Gracious Ogyiri Asare - gpoa@bu.edu -->
+
+{% extends "mini_insta/base.html" %} {% block content %}
+<h1>Update Profile</h1>
+
+<form method="post">
+  {% csrf_token %}
+  <table>
+    {{ form.as_table }}
+  </table>
+
+  <input type="submit" value="Update Profile" />
+  <a href="{% url 'show_profile' profile.pk %}">
+    <button type="button">Cancel</button>
+  </a>
+</form>
+
+{% endblock content %}
