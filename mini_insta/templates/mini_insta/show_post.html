@@ -14,6 +14,10 @@
   {% else %}
   <p>No image available</p>
   {% endif %} {% endfor %}
+  <p><strong>Likes:</strong> {{ post.get_likes|length }}</p>
+  {% if post.get_likes %}
+  <strong><p>Liked by @{{ post.get_likes.0.username }} and others</p></strong>
+  {% endif %}
   <p class="caption">{{ post.caption }}</p>
   <p class="date">Posted on {{ post.timestamp }}</p>
   <a href="{% url 'delete_post' post.pk %}"

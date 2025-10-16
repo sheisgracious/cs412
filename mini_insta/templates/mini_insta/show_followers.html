@@ -1,0 +1,24 @@
+<!-- mini_insta/show_follower.html-->
+<!-- Gracious Ogyiri Asare - gpoa@bu.edu -->
+
+{% extends "mini_insta/base.html" %}{% block content %}
+
+<h2>Followers of {{ profile.display_name }}</h2>
+
+<p>Total Followers: {{ profile.get_num_followers }}</p>
+
+<ul>
+    {% for follower in profile.get_followers %}
+        <li>
+            <a href="{% url 'show_profile' follower.pk %}">
+                {{ follower.display_name }} ({{ follower.username }})
+            </a>
+        </li>
+    {% empty %}
+        <li>No followers yet.</li>
+    {% endfor %}
+</ul>
+
+<a href="{% url 'show_profile' profile.pk %}">Back to profile</a>
+
+{% endblock content %}

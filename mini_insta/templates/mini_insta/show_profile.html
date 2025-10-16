@@ -11,6 +11,15 @@
   />
   <div class="profile-info">
     <h3>@{{ profile.username }}</h3>
+    <h2>
+      <a href="{% url 'show_followers' profile.pk %}">
+        Followers: {{ profile.get_num_followers }}
+      </a>
+      |
+      <a href="{% url 'show_following' profile.pk %}">
+        Following: {{ profile.get_num_following }}
+      </a>
+    </h2>
     <h2>{{ profile.display_name }}</h2>
     <p class="bio">{{ profile.bio_text }}</p>
     <p class="date">Joined {{ profile.join_date }}</p>
