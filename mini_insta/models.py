@@ -77,9 +77,6 @@ class Post(models.Model):
         return [l.profile for l in likes]
     
 
-
-
-    
 class Photo(models.Model):
     '''Model representing a photo in a post.'''
 

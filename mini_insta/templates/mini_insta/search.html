@@ -1,0 +1,12 @@
+<!-- mini_insta/search.html -->
+<!-- Gracious Ogyiri Asare- gpoa@bu.edu -->
+
+{% extends "mini_insta/base.html" %} {% block content %}
+<div class="user-profile">
+  <h2>Search</h2>
+  <form method="get" action="{% url 'profile_search' profile.pk %}">
+    <input type="text" name="query" placeholder="Search for text or people" required />
+    <button type="submit">Search</button>
+  </form>
+</div>
+{% endblock content %}

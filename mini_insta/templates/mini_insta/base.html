@@ -1,5 +1,5 @@
 <!-- mini_insta/base.html-->
- <!-- Gracious Ogyiri Asare - gpoa@bu.edu -->
+<!-- Gracious Ogyiri Asare - gpoa@bu.edu -->
 {% load static %}
 <html>
   <head>
@@ -13,13 +13,26 @@
       <p>
         {% if profile %}
         <a href="{% url 'show_feed' profile.pk %}">
-          <img src="{% static 'home-btn.png' %}" alt="home button" width="32" height="32">
+          <img
+            src="{% static 'home-btn.png' %}"
+            alt="home button"
+            width="32"
+            height="32"
+          />
         </a>
-        <a href={% url 'show_profile' profile.pk %} class="add-btn">Profile</a>
-        <a href={% url 'show_profile' profile.pk %} class="add-btn">Back to Profile</a>
-        <a href={% url 'create_post' profile.pk %} class="add-btn">Add Post</a>
+        <a href="{% url 'show_profile' profile.pk %}" class="add-btn"
+          >Profile</a
+        >
+        <a href="{% url 'show_profile' profile.pk %}" class="add-btn"
+          >Back to Profile</a
+        >
+        <a href="{% url 'create_post' profile.pk %}" class="add-btn"
+          >Add Post</a
+        >
+        <a href="{% url 'profile_search' profile.pk %}" class="add-btn"
+          >Search</a
+        >
         {% endif %}
-        
       </p>
       <p>Created by Gracious Ogyiri Asare for CS412. </p>
     </footer>

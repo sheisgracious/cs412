@@ -121,4 +121,40 @@ class PostFeedListView(ListView):
         context = super().get_context_data(**kwargs)
         context['profile'] = Profile.objects.get(pk=self.kwargs['pk'])
         return context
-    
+
+class SearchView(ListView):
+    '''display search results'''
+    model = Post
+    template_name = 'mini_insta/search_results.html'
+    context_object_name = 'posts'
+
+    def dispatch(self, request, *args, **kwargs):
+        '''Handle the request and dispatch to appropriate template'''
+        self.query = request.GET.get('query', '').strip()
+        
+        if not self.query:
+            context = {
+                'profile': Profile.objects.get(pk=kwargs['pk'])
+            }
+            return render(request, 'mini_insta/search.html', context)
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_queryset(self):
+        '''get posts that match the search'''
+        posts = Post.objects.filter(caption__icontains=self.query)
+        return posts
+
+    def get_context_data(self, **kwargs):
+        '''add profiles and query to context'''
+        context = super().get_context_data(**kwargs)
+        context['profile'] = Profile.objects.get(pk=self.kwargs['pk'])
+        context['query'] = self.query
+        
+        profiles = Profile.objects.filter(
+            models.Q(username__icontains=self.query) |
+            models.Q(display_name__icontains=self.query) |
+            models.Q(bio_text__icontains=self.query)
+        )
+        context['profiles'] = profiles
+        
+        return context
