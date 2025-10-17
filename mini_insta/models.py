@@ -43,6 +43,11 @@ class Profile(models.Model):
         '''return the count of following'''
         following = Follow.objects.filter(follower_profile=self)
         return following.count()
+    def get_post_feed(self):
+        """return posts from profiles this profile is following"""
+        following_profiles = [f.profile for f in Follow.objects.filter(follower_profile=self)]
+        posts = Post.objects.filter(profile__in=following_profiles)
+        return posts
 
 
 class Post(models.Model):
@@ -70,6 +75,8 @@ class Post(models.Model):
         """return a list profiles who liked this post"""
         likes = Like.objects.filter(post=self)
         return [l.profile for l in likes]
+    
+
 
 
     

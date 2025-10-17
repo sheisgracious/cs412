@@ -27,4 +27,7 @@
     ><button type="button">Update</button></a
   >
 </div>
-{% endblock content %}
+<h4>Comments:</h4>
+{% for comment in post.comment_set.all %}
+<p><strong>@{{ comment.profile.username }}:</strong> {{ comment.text }}</p>
+{% empty %} {% endfor %} {% endblock content %}
