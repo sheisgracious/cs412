@@ -6,7 +6,7 @@
 
 <form
   method="post"
-  action="{% url 'create_post' profile.pk %}"
+  action="{% url 'create_post' %}"
   enctype="multipart/form-data"
 >
   {% csrf_token %}

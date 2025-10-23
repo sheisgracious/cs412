@@ -2,15 +2,33 @@ from django.shortcuts import render
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Article, Comment
 from .forms import CreateArticleForm, CreateCommentForm, UpdateArticleForm
+from django.contrib.auth.mixins import LoginRequiredMixin 
 from django.urls import reverse
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
+from django.contrib.auth import login
 import random
 
 # Create your views here.
+
+
+
 class ShowAllView(ListView):
     model = Article
     template_name = 'blog/show_all.html'
     context_object_name = 'articles' #plural name similar to model name- contains many instances of the model
     ordering = ['-published']  # Order by published date descending
+
+    def dispatch(self, request, *args, **kwargs):
+        '''Override the dispatch method to add debugging information.'''
+ 
+        if request.user.is_authenticated:
+            print(f'ShowAllView.dispatch(): request.user={request.user}')
+        else:
+            print(f'ShowAllView.dispatch(): not logged in.')
+ 
+ 
+        return super().dispatch(request, *args, **kwargs)
 
 class ArticleView(DetailView):
     '''Display a single article.'''
@@ -31,7 +49,7 @@ class RandomArticleView(DetailView):
         article = random.choice(all_articles)
         return article
     
-class CreateArticleView(CreateView):
+class CreateArticleView(LoginRequiredMixin, CreateView):
     '''Create a new article.
     1. Display a HTML form to the user (GET)
     2. Process the form submission and store the new Article object (POST)
@@ -43,7 +61,16 @@ class CreateArticleView(CreateView):
         '''handles the form submission and saves the new article to the database.'''
 
         print(f'CreateArtleView.form_valid(): {form.cleaned_data}') #debug
+        user = self.request.user
+        print(f"CreateArticleView user={user} article.user={user}")
+        form.instance.user = user
+ 
         return super().form_valid(form)
+        
+    
+    def get_login_url(self) -> str:
+        '''return the URL required for login'''
+        return reverse('login') 
 
 class CreateCommentView(CreateView):
     '''Create a new comment for an article.
@@ -111,4 +138,20 @@ class DeleteCommentView(DeleteView):
         # reverse to show the article page
         return reverse('article', kwargs={'pk':article.pk})
  
+class RegistrationView(CreateView):
+    '''View class to handle user registration'''
  
+    template_name = 'blog/register.html'
+    form_class = UserCreationForm
+    model = User
+ 
+class UserRegistrationView(CreateView):
+    '''show registration form to create a new User.'''
+ 
+    template_name = 'blog/register.html'
+    form_class = UserCreationForm
+    model = User
+    
+    def get_success_url(self):
+        '''The URL to redirect to after creating a new User.'''
+        return reverse('login')

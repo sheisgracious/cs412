@@ -4,6 +4,7 @@
 # define data models for the mini_insta app
 from django.db import models
 from django.urls import reverse
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Profile(models.Model):
@@ -15,6 +16,8 @@ class Profile(models.Model):
     profile_image_url = models.URLField(blank=True)
     bio_text = models.TextField(blank=True)
     join_date = models.DateTimeField(auto_now=True) #set the joined date automatically
+    user = models.ForeignKey(User, on_delete=models.CASCADE) #foreign key to User model
+
     
     def __str__(self):
         '''String for representing the Model object.'''

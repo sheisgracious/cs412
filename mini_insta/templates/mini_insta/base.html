@@ -7,12 +7,23 @@
     <link rel="stylesheet" href="{% static 'mini_insta-style.css' %}" />
   </head>
   <body>
+    {% if request.user.is_authenticated %}
+    <p> Logged in as <strong>{{ user.username }}</strong> </p>
+    <form method="post" action="{% url 'logout' %}" style="display: inline">
+      {% csrf_token %}
+      <button type="submit">Logout</button>
+    </form>
+    {% else %}
+    <p>Not logged in.</p
+    > <a href="{% url 'login' %}"><button type="submit">Login</button></a>
+  <a href="{% url 'create_profile' %}"><button type="submit">Register</button></a>
+    {% endif %}
     <h1>Mini Insta</h1>
     {% block content %} {% endblock content %}
     <footer>
       <p>
         {% if profile %}
-        <a href="{% url 'show_feed' profile.pk %}">
+        <a href="{% url 'show_feed' %}">
           <img
             src="{% static 'home-btn.png' %}"
             alt="home button"
@@ -23,15 +34,11 @@
         <a href="{% url 'show_profile' profile.pk %}" class="add-btn"
           >Profile</a
         >
-        <a href="{% url 'show_profile' profile.pk %}" class="add-btn"
-          >Back to Profile</a
+        <a href="{% url 'show_all_profiles' %}" class="add-btn"
+          >Feed</a
         >
-        <a href="{% url 'create_post' profile.pk %}" class="add-btn"
-          >Add Post</a
-        >
-        <a href="{% url 'profile_search' profile.pk %}" class="add-btn"
-          >Search</a
-        >
+        <a href="{% url 'create_post' %}" class="add-btn">Add Post</a>
+        <a href="{% url 'profile_search' %}" class="add-btn">Search</a>
         {% endif %}
       </p>
       <p>Created by Gracious Ogyiri Asare for CS412. </p>

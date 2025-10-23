@@ -20,12 +20,14 @@
   {% endif %}
   <p class="caption">{{ post.caption }}</p>
   <p class="date">Posted on {{ post.timestamp }}</p>
+  {% if user.is_authenticated and post.profile.user == user %}
   <a href="{% url 'delete_post' post.pk %}"
     ><button type="button">Delete</button></a
   >
   <a href="{% url 'update_post' post.pk %}"
     ><button type="button">Update</button></a
   >
+  {% endif %}
 </div>
 <h4>Comments:</h4>
 {% for comment in post.comment_set.all %}
