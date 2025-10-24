@@ -1,8 +1,8 @@
 # mini_insta/views.py 
 # Gracious Ogyiri Asare- gpoa@bu.edu
 
-from django.shortcuts import render
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.shortcuts import render, redirect
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
 from .models import *
 from django.urls import reverse
 from .forms import CreatePostForm, UpdateProfileForm, CreateProfileForm
@@ -198,3 +198,66 @@ class CreateProfileView(CreateView):
             return super().form_valid(form)
         else:
             return self.form_invalid(form)
+
+class FollowView(MethodLoginRequiredMixin, TemplateView):
+    '''folow a profile'''
+    def dispatch(self, request, *args, **kwargs):
+        following = Profile.objects.get(pk=kwargs['pk'])
+        user_profile = self.get_profile()
+        
+        if following != user_profile: #users cant follow themselves
+            if not Follow.objects.filter(
+                follower_profile=user_profile,
+                profile=following
+            ).exists():
+                Follow.objects.create(
+                    follower_profile=user_profile,
+                    profile=following
+                )
+        return redirect('show_profile', pk=following.pk)
+    
+class UnfollowView(MethodLoginRequiredMixin, TemplateView):
+    '''Unfollow profile'''
+    def dispatch(self, request, *args, **kwargs):
+        '''Delete follow relationship'''
+        unfollow = Profile.objects.get(pk=kwargs['pk'])
+        user_profile = self.get_profile()
+        
+        Follow.objects.filter(
+            follower_profile=user_profile,
+            profile=unfollow
+        ).delete()
+        return redirect('show_profile', pk=unfollow.pk)
+
+class LikeView(MethodLoginRequiredMixin, TemplateView):
+    '''Like a post'''
+    def dispatch(self, request, *args, **kwargs):
+        '''Create like for a post'''
+        post = Post.objects.get(pk=kwargs['pk'])
+        user_profile = self.get_profile()
+        
+        if post.profile != user_profile: #users can't like their posts
+            if not Like.objects.filter(
+                profile=user_profile,
+                post=post
+            ).exists():
+                Like.objects.create(
+                    profile=user_profile,
+                    post=post
+                )
+        
+        return redirect('show_post', pk=post.pk)
+
+class UnlikeView(MethodLoginRequiredMixin, TemplateView):
+    '''Unlike a post'''
+    def dispatch(self, request, *args, **kwargs):
+        '''Delete like for a post'''
+        post = Post.objects.get(pk=kwargs['pk'])
+        user_profile = self.get_profile()
+        
+        Like.objects.filter(
+            profile=user_profile,
+            post=post
+        ).delete()
+        
+        return redirect('show_post', pk=post.pk)

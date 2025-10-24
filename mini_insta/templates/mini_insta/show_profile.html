@@ -23,11 +23,19 @@
     <h2>{{ profile.display_name }}</h2>
     <p class="bio">{{ profile.bio_text }}</p>
     <p class="date">Joined {{ profile.join_date }}</p>
-    {% if user.is_authenticated and profile.user == user %}
+    {% if user.is_authenticated %} {% if profile.user == user %}
     <a href="{% url 'update_profile' %}">
       <button type="button">Update Profile</button>
     </a>
-    {% endif %}
+    {% else %} {% if profile in user.profile_set.first.get_following %}
+    <a href="{% url 'unfollow_profile' profile.pk %}">
+      <button type="button">Unfollow</button>
+    </a>
+    {% else %}
+    <a href="{% url 'follow_profile' profile.pk %}">
+      <button type="button">Follow</button>
+    </a>
+    {% endif %} {% endif %} {% endif %}
   </div>
 </div>
 <div>
