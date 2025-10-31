@@ -21,7 +21,7 @@ class Voter(models.Model):
     party_affiliation = models.TextField(blank=True)
     precinct = models.TextField(blank=True)
 
-    v20state = models.TextField(blank=True)
+    v20state = models.BooleanField(blank=True)
     v21town = models.BooleanField(default=False)
     v21primary = models.BooleanField(default=False)
     v22general = models.BooleanField(default=False)
@@ -36,6 +36,7 @@ class Voter(models.Model):
     
 def load_data():
         '''Function to load data records from CSV file.'''
+        Voter.objects.all().delete() 
         filename = 'newton_voters.csv'
         f = open(filename)
         f.readline() 
@@ -44,26 +45,27 @@ def load_data():
             field = line.strip().split(',')
             try:
                 result = Voter(
-                    last_name = field[1],
-                    first_name = field[2],
-                    street_number = field[3],
-                    street_name = field[4],
-                    apartment_number = field[5],
-                    zip_code = field[6],
-                    dob = field[7],
-                    date_of_registration = field[8],
-                    party_affiliation = field[9],
-                    precinct = field[10],
-                    v20state = field[11],
-                    v21town = field[12],
-                    v21primary = field[13],
-                    v22general = field[14],
-                    v23town = field[15],
-                    voter_score = field[16],
+                    last_name = field[1].strip(),
+                    first_name = field[2].strip(),
+                    street_number = field[3].strip(),
+                    street_name = field[4].strip(),
+                    apartment_number = field[5].strip(),
+                    zip_code = field[6].strip(),
+                    dob = field[7].strip(),
+                    date_of_registration = field[8].strip(),
+                    party_affiliation = field[9].strip(),
+                    precinct = field[10].strip(),
+                    # for boolean fields, convert strings to boolean values
+                    v20state = field[11].strip().upper() == 'TRUE',
+                    v21town = field[12].strip().upper() == 'TRUE',
+                    v21primary = field[13].strip().upper() == 'TRUE',
+                    v22general = field[14].strip().upper() == 'TRUE',
+                    v23town = field[15].strip().upper() == 'TRUE',
+                    voter_score = int(field[16]) if field[16] else 0,
 
                 )
                 result.save() # commit to database
                 # print(f'Created result: {result}')
             except:
-                print(f'Invalid data: {line}')
-        print(f'Done. Created {len(Voter.objects.all())} Results.')
+                print(f'Invalid data at {line}')
+                print(f'Created {len(Voter.objects.all())}')

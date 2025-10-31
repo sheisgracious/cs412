@@ -1,0 +1,30 @@
+<!-- templates/voter_analytics/graphs.html -->
+<!-- Gracious Ogyiri Asare- gpoa@bu.edu -->
+
+{% extends "voter_analytics/base.html" %}
+
+{% block content %}
+<div class="container">
+  <h1>Voter Analytics Graphs</h1>
+  
+  <div class="row">
+    {% include "voter_analytics/search.html" %}
+  </div>
+  
+  <div class="row">
+    <h2>Distribution of Voters by Year of Birth</h2>
+    {{ graph_birth_year|safe }}
+  </div>
+  
+  <div class="row">
+    <h2>Distribution of Voters by Party Affiliation</h2>
+    {{ graph_party|safe }}
+  </div>
+  
+  <div class="row">
+    <h2>Voter Participation in Elections</h2>
+    {{ graph_elections|safe }}
+  </div>
+  
+</div>
+{% endblock content%}

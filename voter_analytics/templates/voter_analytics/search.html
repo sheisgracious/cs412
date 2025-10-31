@@ -1,0 +1,93 @@
+<!-- templates/voter_analytics/search.html -->
+<!-- Gracious Ogyiri Asare- gpoa@bu.edu -->
+
+<h2>Filter Voters</h2>
+
+<form method="get">
+  <table>
+    <tr>
+      <th>Party Affiliation:</th>
+      <td>
+        <select name="party_affiliation">
+          <option value="">All</option>
+          <option value="D">D</option>
+          <option value="EE">EE</option>
+          <option value="R">R</option>
+          <option value="U">U</option>
+          <option value="U">L</option>
+          <option value="CC">CC</option>
+          <option value="O">Other</option>
+        </select>
+      </td>
+    </tr>
+
+    <tr>
+      <th>Min Birth Year:</th>
+      <td>
+        <select name="min_birth_year">
+          <option value="">All</option>
+          <option value="1920">1920</option>
+          <option value="1930">1930</option>
+          <option value="1940">1940</option>
+          <option value="1950">1950</option>
+          <option value="1960">1960</option>
+          <option value="1970">1970</option>
+          <option value="1980">1980</option>
+          <option value="1990">1990</option>
+          <option value="2000">2000</option>
+          <option value="2006">2006</option>
+        </select>
+      </td>
+    </tr>
+
+    <tr>
+      <th>Max Birth Year:</th>
+      <td>
+        <select name="max_birth_year">
+          <option value="">All</option>
+          <option value="1920">1920</option>
+          <option value="1930">1930</option>
+          <option value="1940">1940</option>
+          <option value="1950">1950</option>
+          <option value="1960">1960</option>
+          <option value="1970">1970</option>
+          <option value="1980">1980</option>
+          <option value="1990">1990</option>
+          <option value="2000">2000</option>
+          <option value="2006">2006</option>
+        </select>
+      </td>
+    </tr>
+
+    <tr>
+      <th>Voter Score:</th>
+      <td>
+        <select name="voter_score">
+          <option value="">All</option>
+          <option value="0">0</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+      </td>
+    </tr>
+
+    <tr>
+      <th>Voted in Elections:</th>
+      <td>
+        <label><input type="checkbox" name="v20state">v20state</label><br>
+        <label><input type="checkbox" name="v21town">v21town</label><br>
+        <label><input type="checkbox" name="v21primary">v21primary</label><br>
+        <label><input type="checkbox" name="v22general">v22general</label><br>
+        <label><input type="checkbox" name="v23town">v23town</label>
+      </td>
+    </tr>
+
+    <tr>
+      <td><input type="submit" value="Search"></td>
+      <td></td>
+    </tr>
+  </table>
+</form>
