@@ -1,0 +1,14 @@
+<!--dadjokes/picture.html-->
+<!-- Gracious Ogyiri Asare - gpoa@bu.edu -->
+
+{% extends "dadjokes/base.html" %} {% block content %}
+
+<h3>Picture Posted by {{ picture.contributor }}</h3>
+  <img
+    src="{{ picture.image_url }}"
+    alt="Dad Joke Picture"
+    height="auto"
+    width="200"
+/>
+
+{% endblock content %}

@@ -1,0 +1,16 @@
+<!--dadjokes/all_jokes.html-->
+<!-- Gracious Ogyiri Asare - gpoa@bu.edu -->
+{% extends "dadjokes/base.html" %} {% block content %}
+<h2>All Dad Jokes</h2>
+<ul>
+  {% for joke in jokes %}
+  <li>
+    <a href="{% url 'show_joke' joke.pk %}">{{ joke.joke_text }}</a>
+    <ul>
+      <li>By: {{ joke.contributor }}</li>
+    </ul>
+  </li>
+  {% empty %}
+  <p>No jokes available.</p>
+</ul>
+{% endfor %} {% endblock content %}

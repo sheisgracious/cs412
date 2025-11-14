@@ -1,0 +1,11 @@
+<!--dadjokes/joke.html-->
+<!-- Gracious Ogyiri Asare - gpoa@bu.edu -->
+
+{% extends "dadjokes/base.html" %}
+{% block content %}
+    
+    <h3>{{ joke.joke_text }}</h3>
+    <h4>By: {{ joke.contributor }} </h4>
+    <h4>At: {{ joke.timestamp }} </h4>
+
+{% endblock content %}

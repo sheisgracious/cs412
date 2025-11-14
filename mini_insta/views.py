@@ -176,6 +176,31 @@ class SearchView(MethodLoginRequiredMixin, ListView):
         
         return context
     
+
+class CreateProfileView(CreateView):
+    form_class = CreateProfileForm
+    template_name = "mini_insta/create_profile_form.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if 'user_form' not in context:
+            context['user_form'] = UserCreationForm()
+        return context
+
+    def form_valid(self, form):
+        user_form = UserCreationForm(self.request.POST)
+        if not user_form.is_valid(form):
+            return self.form_invalid(form)
+        user = user_form.save(form)
+        form.instance.user = user
+        return super().form_valid(form)
+
+
+
+
+
+
+
 class CreateProfileView(CreateView):
     '''create a new profile with user registration'''
     form_class = CreateProfileForm

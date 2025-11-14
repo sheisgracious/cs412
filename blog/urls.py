@@ -14,4 +14,13 @@ urlpatterns = [
     path('login/', auth_views.LoginView.as_view(template_name='blog/login.html'), name='login'), 
 	path('logout/', auth_views.LogoutView.as_view(next_page='show_all'), name='logout'),
     path('register/', RegistrationView.as_view(), name='register'),
+
+    ## API Views:
+    path(r'api/', ArticleListAPIView.as_view(), name='article_list_api'),
+    path(r'api/random', ArticleListAPIView.as_view(), name='article_list_api'),
+    path(r'api/jokes', ArticleListAPIView.as_view(), name='article_list_api'),
+    path(r'api/joke/<int:pk>', ArticleListAPIView.as_view(), name='article_list_api'),
+    path(r'api/pictures', ArticleListAPIView.as_view(), name='article_list_api'),
+    path(r'api/picture/<int:pk>', ArticleListAPIView.as_view(), name='article_list_api'),
+    path(r'api/random_picture', ArticleListAPIView.as_view(), name='article_list_api'),
 ]

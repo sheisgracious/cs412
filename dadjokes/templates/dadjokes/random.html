@@ -1,0 +1,16 @@
+<!--dadjokes/random.html-->
+<!-- Gracious Ogyiri Asare - gpoa@bu.edu -->
+
+{% extends "dadjokes/base.html" %} {% block content %}
+<h2>Random Joke and Picture</h2>
+<h3>Joke:</h3>
+<p>{{ joke.joke_text }}</p>
+<p>By: {{ joke.contributor }}</p>
+<h3>Picture</h3>
+<img
+  src="{{ picture.image_url }}"
+  alt="Dad Joke Picture"
+  height="auto"
+  width="200"
+/>
+{% endblock content %}

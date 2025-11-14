@@ -1,0 +1,24 @@
+<!--dadjokes/base.html-->
+<!-- Gracious Ogyiri Asare - gpoa@bu.edu -->
+
+{% load static %}
+<html>
+  <head>
+    <title>Dad Jokes</title>
+    <link rel="stylesheet" href="{% static 'dadjokes.css' %}" />
+  </head>
+  <body>
+    <h1>Dad Jokes</h1>
+    <nav>
+      <ul>
+        <li><a href="{% url 'random_joke' %}">Random Joke</a></li>
+        <li><a href="{% url 'show_all_jokes' %}">All Jokes</a></li>
+        <li><a href="{% url 'show_all_pictures' %}">All Pictures</a></li>
+      </ul>
+    </nav>
+    {% block content %} {% endblock content %}
+  </body>
+  <footer>
+    <p>Created by Gracious Ogyiri Asare for CS412. </p>
+  </footer>
+</html>
